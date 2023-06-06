@@ -26,15 +26,15 @@ Aplikasi Artikel Sederhana Menggunakan Laravel Framework.
 
 ## User dan Role
 
-# Super Admin (Full Access)
+### Super Admin (Full Access)
 - Email = superadmin@gmail.com
 - Password = superadmin
 
-# Admin (CRUD Artikel dan CRUD Kategori)
+### Admin (CRUD Artikel dan CRUD Kategori)
 - Email = admin@gmail.com
 - Password = admin
 
-# Member (Read Artikel)
+### Member (Read Artikel)
 - Email = member@gmail.com
 - Password = member
 
