@@ -35,7 +35,7 @@
                             @endforeach
                         </select>
                     </div>
-                    @if (Gate::check('permission_create'))
+                    @if (Gate::check('article_create'))
                     <div class="input-group ms-2 w-25">
                         <a href="{{url('article/create')}}" class="btn btn-primary">Create Article
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -53,24 +53,7 @@
 
             {{-- List Article --}}
             <div class="row  row-cols-1 row-cols-md-2 g-4" id="loadData">
-                {{-- @foreach ($articles as $article)
-                    <div class="col">
-                        <a href="{{route('article.show',$article->id)}}">
-                            <div class="card">
-                                <img src="{{$article->getBanner()}}" alt="" width="100%" height="180px" style="object-fit:cover;">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="card-title w-75">{{$article->title}}</h5> <small class="text-muted">{{$article->getDate()}}</small>
-                                    </div>
-                                    <div class="card-text text-black">{!! $article->firstSentence() !!}</div>
-                                    <div>
-                                        <span class="badge p-2 me-2 my-1 bg-secondary">{{$article->category->name}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                @endforeach --}}
+                
             </div>
 
         </div>
@@ -79,17 +62,11 @@
         <div class="col-lg-3">
             <div class="sticky-md-top pt-1" style="z-index: 1;">
                 <div class="mt-5 ">
-                    {{-- <select class="form-select" aria-label="Default select example">
-        <option selected>Status</option>
-        <option value="1">Bekerja</option>
-        <option value="2">Kuliah</option>
-        <option value="3">Freelance</option>
-        </select> --}}
                 </div>
 
 
                 <div class="card">
-                    @if(Gate::check('permission_create'))
+                    @if(Gate::check('article_create'))
                         <div class="card-header">
                             <div class="header-title d-flex">
                                 <h5 class="card-title">Your Article
@@ -98,7 +75,7 @@
                         </div>
                     @endif
                     <div class="card-body">
-                    @if(Gate::check('permission_create'))
+                    @if(Gate::check('article_create'))
                             @if ($myArticle->count() == 0)
                             <div class="col-md-12 mb-2">
                                 <div class="text-center">
@@ -108,7 +85,7 @@
                             @else
                             @foreach ($myArticle as $my)
                             <a href="{{route('article.show',$my->id)}}">
-                                <div class="d-flex align-items-center mb-2">
+                                <div class="d-flex align-items-center mb-4">
                                     <div class="bg-info text-white rounded p-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -116,9 +93,9 @@
                                                 d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                         </svg>
                                     </div>
-                                    <div class="ms-2 pt-2">
+                                    <div class="ms-2">
                                         <div class="h6 overflow-hidden">{{$my->shortTitle()}}</div>
-                                        <small class="text-black">{!! $my->firstPhrase() !!}</small>
+                                        <small class="text-black">{!! Str::limit( strip_tags( $my->content ), 20 ) !!}</small>
                                     </div>
                                 </div>
                             </a>
@@ -138,7 +115,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- @include('partials.components.share-offcanvas') --}}
+                
     </div>
 @endsection
 

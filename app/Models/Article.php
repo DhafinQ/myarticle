@@ -48,12 +48,6 @@ class Article extends Model
         return strlen($content) > 150 ? substr($content,0,150)."..." : $content;
     }
 
-    public function firstPhrase()
-    {
-        $content = $this->content;
-        return strlen($content) > 20 ? substr($content,0,20)."..." : $content;
-    }
-
     public function shortTitle()
     {
         $title = $this->title;
