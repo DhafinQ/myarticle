@@ -22,6 +22,7 @@ Aplikasi Artikel Sederhana Menggunakan Laravel Framework.
 - Ketik 'php artisan key:generate'
 - Pastikan sudah dibuat database bernama 'article_website'
 - Ketik 'php artisan migrate:fresh --seed'
+- Ketik 'php artisan storage:link'
 - Ketik 'php artisan serve'
 
 ## User dan Role
