@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         $this->authorize('category_menu');
-        return view('master.article');
+        return view('master.category');
     }
 
     public function listCategory()

@@ -21,11 +21,11 @@
                         </div>
                         <div class="d-flex justify-content-between mt-3">
                             <div class="">
-                                <span class="badge p-2 me-2 my-1 bg-secondary">{{$article->category->name}}</span>
+                                <span class="badge p-2 me-2 mt-2 bg-secondary">{{$article->category->name}}</span>
                             </div>
-                            <div class="">
-                                <a href="{{url('article/edit/'.$article->id)}}" class="btn btn-warning btn-sm">Edit Article</a>
-                                <button type="button" class="btn btn-sm btn-danger" id="del-btn">
+                            <div class="text-end">
+                                <a href="{{url('article/edit/'.$article->id)}}" class="btn btn-warning btn-sm mt-2">Edit Article</a>
+                                <button type="button" class="btn btn-sm btn-danger mt-2" id="del-btn">
                                     Delete Article
                                 </button>
                             </div>
@@ -39,6 +39,15 @@
         <h2 class="my-3">
             Recomendation For You
         </h2>
+        @if ($recomendations->count() == 0)
+            <div class="text-center my-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                </svg>
+                <p class="mt-2">No Recomendation Found</p>
+            </div>
+        @else
         <div class="row row-cols-1 row-cols-md-2 g-4">
             @foreach($recomendations as $recomend)
             <div class="col">
@@ -60,6 +69,8 @@
             </div>
             @endforeach
         </div>
+        @endif
+        
 
     </div>
 
@@ -67,36 +78,47 @@
     <div class="col-lg-3">
         <div class="sticky-md-top pt-1">
             <div class="mt-5 ">
-                {{-- <select class="form-select" aria-label="Default select example">
-    <option selected>Status</option>
-    <option value="1">Bekerja</option>
-    <option value="2">Kuliah</option>
-    <option value="3">Freelance</option>
-    </select> --}}
             </div>
 
             <div class="card">
+                @if(Gate::check('article_create'))
+                    <div class="card-header">
+                        <div class="header-title d-flex">
+                            <h5 class="card-title">Your Article
+                            </h5>
+                        </div>
+                    </div>
+                @endif
                 <div class="card-body">
-                                    
-                    @foreach ($myArticle as $my)
-                    <a href="{{route('article.show',$my->id)}}">
-                        <div class="d-flex align-items-center mb-2">
-                            <div class="bg-info text-white rounded p-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                            </div>
-                            <div class="ms-2 pt-2">
-                                <div class="h6 overflow-hidden">{{$my->shortTitle()}}</div>
-                                <small class="text-black">{!! $my->firstPhrase() !!}</small>
+                @if(Gate::check('article_create'))
+                        @if ($myArticle->count() == 0)
+                        <div class="col-md-12 mb-2">
+                            <div class="text-center">
+                                <p>No Articles Found</p>
                             </div>
                         </div>
-                    </a>
-                    @endforeach
+                        @else
+                        @foreach ($myArticle as $my)
+                        <a href="{{route('article.show',$my->id)}}">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-info text-white rounded p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                </div>
+                                <div class="ms-2">
+                                    <div class="h6 overflow-hidden">{{$my->shortTitle()}}</div>
+                                    <small class="text-black">{!! Str::limit( strip_tags( $my->content ), 20 ) !!}</small>
+                                </div>
+                            </div>
+                        </a>
+                        @endforeach
+                        @endif
+                    @endif
                     
-                    <h5 class="my-3" style="font-style: normal;">All Categories
+                    <h5 class="mb-3">All Categories
                     </h5>
 
                     <div class="d-flex flex-wrap">
@@ -108,44 +130,9 @@
                     </div>
                 </div>
             </div>
-            
-
-            <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
-                integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
-            <script>
-            $(document).on('click', '#del-btn', function () {
-                var id = $(this).data('id');
-                Swal.fire({
-                    icon: 'question',
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'error',
-                    showCancelButton: true,
-                    confirmButtonColor: '#28C76F',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                })
-                .then((result) => {
-                    if (result.value) {
-                        $.ajax({
-                            'url': '{{url('article/'.$article->id)}}',
-                            'type': 'POST',
-                            'data': {
-                                '_method': 'DELETE',
-                                '_token': '{{csrf_token()}}',
-                            },
-                            success: function (response) {
-                                if (response.message) {
-                                   window.location.href = "/article";
-                                }
-                            }
-                        });
-                    } else {
-                        console.log(`dialog was dismissed by ${result.dismiss}`)
-                    }
-                });
-        });
-            </script>
-            {{-- @include('partials.components.share-offcanvas') --}}
 </div>
+@endsection
+
+@section('scripts')
+    @include('script.article-show-script')
 @endsection

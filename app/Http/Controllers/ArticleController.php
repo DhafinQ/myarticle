@@ -30,7 +30,6 @@ class ArticleController extends Controller
     public function index()
     {
         $this->authorize('article_menu');
-        $this->authorize('article_menu');
         return view('master.article');
     }
 
@@ -57,7 +56,7 @@ class ArticleController extends Controller
                 $data = Article::with('user')->where('title','like','%'.$request->search.'%')
                 ->where('id','<',$request->id)->orderByDesc('id')->limit(6)->get();
             }else{
-                $data = Article::orderByDesc('id')->limit(6)->get();
+                $data = Article::orderByDesc('id')->where('id','<',$request->id)->orderByDesc('id')->limit(6)->get();
             }
 
         } else {

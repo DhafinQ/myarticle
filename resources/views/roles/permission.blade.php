@@ -44,7 +44,7 @@
                                     </th>
                                     @endcan
                                     @if (Gate::check('permission_update') || Gate::check('permission_read'))
-                                    <th class="text-center" width="10%">Actions</th> 
+                                    <th class="text-center" width="15%">Actions</th> 
                                     @endif
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Slug</th>
